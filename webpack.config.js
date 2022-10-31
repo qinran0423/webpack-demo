@@ -9,12 +9,11 @@ module.exports = {
     port: 9000,
     hot: true
   },
-  mode: "development",
+  mode: "production",
   entry: "./src/main.js",
   devtool: "source-map",
   output: {
     filename: "bundle.js",
-
     path: path.join(__dirname, "output")
   },
   module: {
@@ -41,5 +40,10 @@ module.exports = {
     }),
     new RemoveCommentsPlugins(),
     new webpack.HotModuleReplacementPlugin()
-  ]
+  ],
+  optimization: {
+    usedExports: true, // 打包结果中只导出外部用到的成员
+    minimize: false, // 压缩打包结果
+    concatenateModules: true
+  }
 }
