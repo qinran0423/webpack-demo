@@ -1,13 +1,11 @@
 // ./src/heading.js
 
 export default () => {
+  const element = document.createElement("h2")
 
-  const element = document.createElement('h2')
+  element.textContent = "Hello iiieeeeewerwersadas"
 
-  element.textContent = 'Hello webpack'
-
-  element.addEventListener('click', () => alert('Hello webpack'))
+  element.addEventListener("click", () => alert("Hello webpack"))
 
   return element
-
 }

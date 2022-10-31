@@ -2,12 +2,16 @@
 const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const RemoveCommentsPlugins = require("./src/plugins/remove-comments-plugin")
-
+const webpack = require("webpack")
 const path = require("path")
 module.exports = {
+  devServer: {
+    port: 9000,
+    hot: true
+  },
   mode: "development",
   entry: "./src/main.js",
-
+  devtool: "source-map",
   output: {
     filename: "bundle.js",
 
@@ -18,6 +22,10 @@ module.exports = {
       {
         test: /\.md$/,
         use: ["html-loader", "./src/loader/markdown-loader"]
+      },
+      {
+        test: /.css$/,
+        use: ["style-loader", "css-loader"]
       }
     ]
   },
@@ -31,6 +39,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: "about.html"
     }),
-    new RemoveCommentsPlugins()
+    new RemoveCommentsPlugins(),
+    new webpack.HotModuleReplacementPlugin()
   ]
 }
