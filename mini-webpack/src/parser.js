@@ -1,5 +1,7 @@
 import { parse as parseBabel } from "@babel/parser"
 import rawTraverse from "@babel/traverse"
+import { transformFromAst } from "@babel/core"
+
 const traverse = rawTraverse.default
 export function parse(source) {
   const dependencies = []
@@ -13,8 +15,12 @@ export function parse(source) {
     }
   })
 
+  const { code } = transformFromAst(ast, null, {
+    presets: ["env"]
+  })
+
   return {
-    source,
+    code,
     dependencies
   }
 }
